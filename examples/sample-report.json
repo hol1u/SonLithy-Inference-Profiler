@@ -1,0 +1,60 @@
+{
+  "version": "0.1.0",
+  "generated_at": "2026-01-01T00:00:00+00:00",
+  "backend": {
+    "name": "ollama",
+    "host": "http://localhost:11434",
+    "model": "llama3.2",
+    "timeout_seconds": 60.0
+  },
+  "configuration": {
+    "prompt": "Describe a small software project in one sentence.",
+    "iterations": 2,
+    "warmup_iterations": 1
+  },
+  "counts": {
+    "requested_iterations": 2,
+    "successful_iterations": 2,
+    "failed_iterations": 0,
+    "warmup_failures": 0
+  },
+  "summary": {
+    "total_request_latency_seconds": {
+      "mean": 1.25,
+      "median": 1.25,
+      "minimum": 1.1,
+      "maximum": 1.4
+    },
+    "time_to_first_token_seconds": {
+      "mean": null,
+      "median": null,
+      "minimum": null,
+      "maximum": null
+    },
+    "generation_throughput_tokens_per_second": {
+      "mean": 8.5,
+      "median": 8.5,
+      "minimum": 8.0,
+      "maximum": 9.0
+    }
+  },
+  "iterations": [
+    {
+      "iteration": 1,
+      "succeeded": true,
+      "total_request_latency_seconds": 1.1,
+      "time_to_first_token_seconds": null,
+      "generation_throughput_tokens_per_second": 9.0,
+      "error": null
+    },
+    {
+      "iteration": 2,
+      "succeeded": true,
+      "total_request_latency_seconds": 1.4,
+      "time_to_first_token_seconds": null,
+      "generation_throughput_tokens_per_second": 8.0,
+      "error": null
+    }
+  ],
+  "warmup_errors": []
+}
