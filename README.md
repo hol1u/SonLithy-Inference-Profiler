@@ -1,15 +1,87 @@
 # SonLithy Inference Profiler
 
+## Overview
+
+SonLithy Inference Profiler is a Python toolkit for measuring and analyzing the
+inference performance of local Large Language Models (LLMs).
+
+The project aims to help developers understand model latency, generation speed,
+and resource usage through reproducible benchmarks and structured reports.
+
+## Project Status
+
+Early development. Features are planned and are not considered implemented
+until verified by working code and tests.
+
+Currently implemented (v0.1.0, command line only):
+
+- Total request latency, with mean, median, min and max
+- Generated tokens per second, from Ollama's reported counts and durations
+- Configurable benchmark iterations and model warm-up
+- JSON report export
+- Handling of connection failures, timeouts and invalid configuration
+- Automated tests for the measurement logic
+
+Not implemented yet:
+
+- Time to first token (TTFT). The code has a place for it, but the current
+  non-streaming Ollama integration cannot measure it, so it is reported as
+  unavailable.
+- Resource usage (CPU, RAM, GPU, VRAM) monitoring
+- Backends other than Ollama
+- A web UI, an API, run comparison and environment metadata
+
+These items are planned and are not available in any release.
+
+## Problem
+
+Running a local LLM does not automatically provide enough information to
+understand its real-world performance. Developers need reliable measurements to
+compare configurations, identify performance differences, and make informed
+optimization decisions.
+
+## Target Audience
+
+- Developers running local LLMs
+- AI engineers and ML practitioners
+- Open-source model enthusiasts
+- Developers evaluating inference configurations
+
+## Initial Integration
+
+The first integration uses the Ollama API. The architecture is intended to allow
+additional inference backends to be added later without rewriting the benchmark
+engine.
+
+## Design Principles
+
+- Reproducible measurements
+- Clear separation between benchmark logic and backend integration
+- Minimal dependencies
+- Explicit reporting of unavailable metrics
+- Honest documentation of measurement limitations
+- Automated testing and maintainable code
+
+## Out of Scope for the MVP
+
+- Model training and fine-tuning
+- Automatic GPU optimization
+- Distributed benchmarking
+- Cloud-based model hosting
+- Complex dashboards and visualization interfaces
+
+## Usage Guide
+
 A Python command-line toolkit for measuring local LLM inference latency and
 generation throughput through Ollama.
 
-## Requirements
+### Requirements
 
 - Python 3.10 or newer
 - A running [Ollama](https://ollama.com/) server
 - A model downloaded into Ollama (for example, `llama3.2`)
 
-## Install for development
+### Install for development
 
 From the repository root, install the package and its test dependencies in
 editable mode:
@@ -18,7 +90,7 @@ editable mode:
 python -m pip install -e ".[dev]"
 ```
 
-## Start Ollama
+### Start Ollama
 
 Start the local Ollama server in a separate terminal if it is not already
 running:
@@ -35,7 +107,7 @@ ollama pull llama3.2
 
 The default server address is `http://localhost:11434`.
 
-## Run a benchmark
+### Run a benchmark
 
 ```bash
 sonlithy-profiler benchmark \
@@ -86,7 +158,7 @@ Generation settings other than the selected model and prompt cannot be
 configured; reports do not collect the machine or model-runtime metadata needed
 to explain hardware-specific results or warn about incomparable runs.
 
-## Tests
+### Tests
 
 ```bash
 python -m pytest
