@@ -77,7 +77,9 @@ generation throughput through Ollama.
 
 ### Requirements
 
-- Python 3.10 or newer
+- Python 3.10 or newer. CI is configured to test Python 3.10-3.13, but the
+  workflow has not run yet. Python 3.14 is included as an experimental CI
+  version and is not yet an official support claim.
 - A running [Ollama](https://ollama.com/) server
 - A model downloaded into Ollama (for example, `llama3.2`)
 
@@ -149,8 +151,8 @@ measured iterations and warm-up failure reasons; successful warm-up measurements
 are excluded from the measured statistics.
 
 See [`examples/sample-report.json`](examples/sample-report.json) for a small,
-sanitized example of the report format. It uses a generic prompt and
-representative measurements rather than a real local run.
+sanitized example of the report format. It is illustrative sample data: it uses
+a generic prompt and representative measurements rather than a real local run.
 
 TTFT, CPU/GPU utilization and memory, cross-run comparisons, and automatic
 environment metadata collection are not implemented in this release.
@@ -162,4 +164,10 @@ to explain hardware-specific results or warn about incomparable runs.
 
 ```bash
 python -m pytest
+python -m ruff check .
+python -m mypy
 ```
+
+## License
+
+Released under the [MIT License](LICENSE).

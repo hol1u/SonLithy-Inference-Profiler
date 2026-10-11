@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,10 +8,32 @@ version = "0.1.0"
 description = "A Python toolkit for benchmarking local LLM inference performance."
 readme = "README.md"
 requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "hol1u" }]
+keywords = ["llm", "benchmark", "inference", "ollama", "performance"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Typing :: Typed",
+]
 dependencies = []
 
 [project.optional-dependencies]
-dev = ["pytest>=8"]
+dev = ["pytest>=8", "ruff>=0.6", "mypy>=1.10"]
+
+[project.urls]
+Homepage = "https://github.com/hol1u/SonLithy-Inference-Profiler"
+Repository = "https://github.com/hol1u/SonLithy-Inference-Profiler"
+Issues = "https://github.com/hol1u/SonLithy-Inference-Profiler/issues"
+Changelog = "https://github.com/hol1u/SonLithy-Inference-Profiler/blob/main/CHANGELOG.md"
 
 [project.scripts]
 sonlithy-profiler = "sonlithy_profiler.cli:main"
@@ -19,6 +41,28 @@ sonlithy-profiler = "sonlithy_profiler.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+sonlithy_profiler = ["py.typed"]
+
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py310"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B"]
+
+[tool.ruff.lint.per-file-ignores]
+# Existing baseline E501 findings.
+"tests/test_cli.py" = ["E501"]
+"tests/test_ollama.py" = ["E501"]
+# Accessing urlsplit(...).port intentionally validates the port.
+"src/sonlithy_profiler/backends/ollama.py" = ["B018"]
+
+[tool.mypy]
+files = ["src"]
+python_version = "3.10"
+warn_unused_ignores = true

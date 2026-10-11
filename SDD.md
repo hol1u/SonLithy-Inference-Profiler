@@ -3,7 +3,7 @@ SonLithy Inference Profiler
 Software Design Document (SDD)
 
 Version: 0.1.0
-Status: Design
+Status: MVP implemented (0.1.0). This document describes the MVP; planned work beyond it is not covered here.
 
 1. Purpose
 
@@ -120,7 +120,8 @@ Each report should include, when available:
 - Measurement methodology
 - Relevant backend and system metadata
 
-Comparisons must warn users when important settings differ.
+Run comparisons and warnings about differing settings are planned but not
+implemented; reports do not currently compare runs.
 
 Results are influenced by hardware, model size, quantization, context length, generation parameters, background workloads, and backend implementation.
 
@@ -155,34 +156,46 @@ Tests must cover:
 
 Unit tests must not require a running Ollama server.
 
-Integration tests may use a real Ollama instance when explicitly configured.
+Integration tests may use a real Ollama instance when explicitly configured. No such tests exist yet; the automated suite uses mocked responses only.
+
+CI is configured to test Python 3.10-3.13, but the workflow has not run yet.
 
 Use deterministic fixtures and mocked backend responses wherever practical.
 
-9. Initial Project Structure
+9. Project Structure
 
 sonlithy-inference-profiler/
+├── .gitignore
 ├── README.md
-├── DESCRIPTION.md
+├── CHANGELOG.md
+├── LICENSE
 ├── SDD.md
 ├── pyproject.toml
+├── .github/workflows/ci.yml
+├── examples/
+│   └── sample-report.json
 ├── src/
 │   └── sonlithy_profiler/
-│       ├── init.py
+│       ├── __init__.py
+│       ├── py.typed
 │       ├── cli.py
 │       ├── config.py
 │       ├── benchmark.py
 │       ├── metrics.py
 │       ├── backends/
-│       │   ├── init.py
+│       │   ├── __init__.py
 │       │   └── ollama.py
 │       └── reporting/
-│           ├── init.py
+│           ├── __init__.py
 │           └── json_report.py
 └── tests/
+    ├── test_benchmark.py
+    ├── test_cli.py
     ├── test_config.py
     ├── test_metrics.py
-    ├── test_benchmark.py
+    ├── test_ollama.py
+    ├── test_package_imports.py
+    ├── test_package_metadata.py
     └── test_reporting.py
 
 The implementation may adjust this structure when there is a documented technical reason.
